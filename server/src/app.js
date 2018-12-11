@@ -12,9 +12,11 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/surveys');
 
 var db = mongoose.connection;
-
-var Survey= require("../models/survey");
 var Pepa= require("../models/pepa");
+var Respuesta= require("../models/respuesta");
+var Experto= require("../models/experto");
+var Survey= require("../models/survey");
+
 
 db.on("error", console.error.bind(console, "connection error"));
 

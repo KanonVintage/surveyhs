@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import SignIn from '@/components/SignIn'
+import Login from '@/components/Login'
 import Survey from '@/components/Survey'
 
 Vue.use(Router)
@@ -9,8 +9,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'SignIn',
-      component: SignIn
+      name: 'Login',
+      component: Login
     },
     {
       path: '/survey',

@@ -30,8 +30,8 @@ PepaSchema.statics.obtenerPepaPorRegion = function(region_pepa, callback) {
   this.find({region: region_pepa}, callback)
 }
 
-var Pepa = mongoose.model("Pepa", PepaSchema);
-module.exports = Pepa;
+module.exports= mongoose.model("Pepa", PepaSchema);
+
 
 
 

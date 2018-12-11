@@ -7,8 +7,10 @@ var SurveySchema = new Schema({
         'default': require('shortid').generate
     },
     pepas: [{
-        pepa: String,
-        ref: 'Pepa'
+        pepa: {
+            type: String,
+            ref: 'Pepa'
+        }
     }]
 },{timestamps: true, versionKey: false, collection: 'surveys'});
 
@@ -16,5 +18,4 @@ SurveySchema.methods.crearSurvey = function(callback) {
     this.save(callback);
   }
 
-var Survey = mongoose.model("Survey", SurveySchema);
-module.exports = Survey;
+module.exports = mongoose.model("Survey", SurveySchema);

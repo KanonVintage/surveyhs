@@ -28,5 +28,4 @@ ExpertoSchema.statics.obtenerExperto = function(id_experto,callback) {
   this.findOne({_id: id_experto}).populate({path: 'expertos'}).exec(callback);
 }
 
-var Experto = mongoose.model("Experto", ExpertoSchema);
-module.exports = Experto;
+module.exports = mongoose.model("Experto", ExpertoSchema);

@@ -13,11 +13,11 @@ var RespuestaSchema = new Schema({
     type: String
   },
   pepa: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Pepa'
   },
   experto: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Experto'
   }
 },{timestamps: true, versionKey: false, collection: 'respuestas'});
@@ -26,11 +26,11 @@ RespuestaSchema.methods.crearRespuesta = function(callback) {
   this.save(callback);
 }
 
-PepaSchema.statics.obtenerTodasPepas = function(callback) {
+RespuestaSchema.statics.obtenerTodasPepas = function(callback) {
 	this.find({}).populate({path: 'pepas'}).exec(callback);
 }
 
-PepaSchema.statics.obtenerGrupo = function(id_pepa,callback) {
+RespuestaSchema.statics.obtenerGrupo = function(id_pepa,callback) {
   this.findOne({_id: id_pepa}).populate({path: 'pepas'}).exec(callback);
 }
 
@@ -38,5 +38,4 @@ RespuestaSchema.statics.obtenerRespuestaPorExperto = function(id_experto, callba
   this.find({experto: id_experto}, callback)
 }
 
-var Respuesta = mongoose.model("Respuesta", RespuestaSchema);
-module.exports = Respuesta;
+module.exports = mongoose.model("Respuesta", RespuestaSchema);
