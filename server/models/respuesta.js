@@ -19,6 +19,10 @@ var RespuestaSchema = new Schema({
   experto: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Experto'
+  },
+  survey: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Survey'
   }
 },{timestamps: true, versionKey: false, collection: 'respuestas'});
 
