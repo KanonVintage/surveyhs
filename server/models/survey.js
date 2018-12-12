@@ -6,6 +6,9 @@ var SurveySchema = new Schema({
         type: String,
         'default': require('shortid').generate
     },
+    nombre: {
+        type: String
+    },
     pepas: [{
         pepa: {
             type: String,
