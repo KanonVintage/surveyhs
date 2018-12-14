@@ -3,6 +3,12 @@
     <h1>{{nombre}}</h1>
     </br>
     </br>
+    
+
+
+
+
+
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex xs6>
@@ -33,10 +39,10 @@
 <v-container fluid>
   <v-layout align-end justify-space-between fill-height>
       <v-flex xs4>
-        <v-btn>Anterior</v-btn>
+        <v-btn @click="prev">Anterior</v-btn>
       </v-flex>
       <v-flex xs4>
-        <v-btn>Siguiente</v-btn>
+        <v-btn @click="next">Siguiente</v-btn>
       </v-flex>
   </v-layout>
 </v-container>
@@ -52,7 +58,9 @@ export default {
         nombre: 'Encuesta sobre pepas de cacao',
         fermentacion: '',
         tipo:  '',
-        url: 'http://cacaomovil.com/media/uploads/2015/09/03/volteo-granos-asegura.jpg'
+        url: 'http://cacaomovil.com/media/uploads/2015/09/03/volteo-granos-asegura.jpg',
+        length: 3,
+        onboarding: 0
     }
   },
   mounted () {
@@ -62,7 +70,17 @@ export default {
     async getSurvey () {
       const response = await SurveyService.fetchInfo()
       this.surveys = response.data
-    }
+    },
+    next () {
+        this.onboarding = this.onboarding + 1 === length
+          ? 0
+          : this.onboarding + 1
+      },
+      prev () {
+        this.onboarding = this.onboarding - 1 < 0
+          ? this.length - 1
+          : this.onboarding - 1
+      }
   }
 }
 </script>

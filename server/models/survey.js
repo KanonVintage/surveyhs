@@ -19,6 +19,13 @@ var SurveySchema = new Schema({
 
 SurveySchema.methods.crearSurvey = function(callback) {
     this.save(callback);
-  }
+}
+
+SurveySchema.statics.obtenerSurvey = function(id_survey, callback) {
+this.findOne({_id: id_survey})
+    .populate('pepa')
+    .exec(callback);
+}
+
 
 module.exports = mongoose.model("Survey", SurveySchema);

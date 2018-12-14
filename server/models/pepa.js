@@ -19,11 +19,11 @@ PepaSchema.methods.crearPepa = function(callback) {
 }
 
 PepaSchema.statics.obtenerTodasPepas = function(callback) {
-	this.find({}).populate({path: 'pepas'}).exec(callback);
+	this.find({}).exec(callback);
 }
 
 PepaSchema.statics.obtenerPepa = function(id_pepa,callback) {
-  this.findOne({_id: id_pepa}).populate({path: 'pepas'}).exec(callback);
+  this.findOne({_id: id_pepa}).exec(callback);
 }
 
 PepaSchema.statics.obtenerPepaPorRegion = function(region_pepa, callback) {

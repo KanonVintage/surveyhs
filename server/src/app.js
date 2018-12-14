@@ -8,14 +8,14 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
+
+
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/surveys');
 
 var db = mongoose.connection;
-var Pepa= require("../models/pepa");
-var Respuesta= require("../models/respuesta");
-var Experto= require("../models/experto");
-var Survey= require("../models/survey");
+var SurveyController = require('../controllers/survey.controller');
 
 
 db.on("error", console.error.bind(console, "connection error"));
@@ -24,14 +24,9 @@ db.once("open", function(callback){
   console.log("Connection Succeeded");
 });
 
-app.get('/survey', (req, res) => {
-  res.send(
-    [{
-      title: "Pepa",
-      description: "Pepa de cacao Nacional."
-    }]
-  )
-})
+const api = express()
+require('../routes/routes')(api)
+app.use('/api', api)
 /*
 app.post('/pepa', (req, res) => {
     new Promise((resolve, reject) => {
