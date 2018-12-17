@@ -35,7 +35,7 @@ RespuestaSchema.statics.obtenerTodasRespuestas = function(callback) {
 }
 
 RespuestaSchema.statics.obtenerRespuestas = function(id_pepa,callback) {
-  this.findOne({pepa: id_pepa}).populate('pepa','_id').populate('experto', '_id nombre').populate('survey', '_id').exec(callback);
+  this.find({pepa: id_pepa}).populate('pepa','_id').populate('experto', '_id nombre').populate('survey', '_id').exec(callback);
 }
 
 RespuestaSchema.statics.obtenerRespuestasPorExperto = function(id_experto, callback) {

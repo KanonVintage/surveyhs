@@ -4,12 +4,19 @@
     </br>
     </br>
     
+  <v-tabs dark color="cyan" show-arrows>
+      <v-tabs-slider color="yellow"></v-tabs-slider>
+  
+      <v-tab v-for="i in 30" :href="'#tab-' + i" :key="i">
+        Item {{ i }}
+      </v-tab>
+  
+      <v-tabs-items>
+        <v-tab-item v-for="i in 30" :id="'tab-' + i" :key="i">
+          <v-card flat>
 
 
-
-
-
-    <v-container grid-list-md text-xs-center>
+            <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex xs6>
       <h3 style="text-align:left;">Nivel de fermentación</h3>
@@ -27,25 +34,43 @@
       </v-radio-group>
         </v-flex>
         
-<v-flex xs6 >
-    <div>
-      <v-img v-bind:src="url" aspect-ratio="1.5"></v-img>
+        <v-flex xs6 >
+            <div>
+              <v-img v-bind:src="url" aspect-ratio="1.5"></v-img>
 
-    </div>
-</v-flex>   
-      </v-layout>
-    </v-container>
+            </div>
+        </v-flex>   
+              </v-layout>
+            </v-container>
 
-<v-container fluid>
-  <v-layout align-end justify-space-between fill-height>
-      <v-flex xs4>
-        <v-btn @click="prev">Anterior</v-btn>
-      </v-flex>
-      <v-flex xs4>
-        <v-btn @click="next">Siguiente</v-btn>
-      </v-flex>
-  </v-layout>
-</v-container>
+        <v-container fluid>
+          <v-layout align-end justify-space-between fill-height>
+              <v-flex xs4>
+                <v-btn @click="prev">Anterior</v-btn>
+              </v-flex>
+              <v-flex xs4>
+                <v-btn @click="next">Siguiente</v-btn>
+              </v-flex>
+          </v-layout>
+        </v-container>
+            
+
+
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-tabs>
+
+
+
+
+    
+
+
+
+
+
+
   </div>
 </template>
 

@@ -9,7 +9,7 @@ var PepaSchema = new Schema({
   fotoURL: {
     type: String
   },
-  region: {
+  nombre: {
     type: String
   }
 }, {timestamps: true, versionKey: false, collection: 'pepas'});
@@ -25,10 +25,10 @@ PepaSchema.statics.obtenerTodasPepas = function(callback) {
 PepaSchema.statics.obtenerPepa = function(id_pepa,callback) {
   this.findOne({_id: id_pepa}).exec(callback);
 }
-
+/*
 PepaSchema.statics.obtenerPepaPorRegion = function(region_pepa, callback) {
   this.find({region: region_pepa}, callback)
-}
+}*/
 
 module.exports= mongoose.model("Pepa", PepaSchema);
 
