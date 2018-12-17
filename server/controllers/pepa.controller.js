@@ -3,6 +3,9 @@ var respuesta = require('../utils/responses');
 
 
 const crearPepa= (req, res) => {
+    console.log(req.body);
+
+
     let Pepa = new PepaModel({
       fotoURL        : req.body.fotoURL,
       nombre          : req.body.nombre

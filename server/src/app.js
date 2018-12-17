@@ -6,6 +6,7 @@ const morgan = require('morgan')
 const app = express()
 app.use(morgan('combined'))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
 
 
@@ -15,9 +16,6 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/surveys');
 
 var db = mongoose.connection;
-var SurveyController = require('../controllers/survey.controller');
-
-
 db.on("error", console.error.bind(console, "connection error"));
 
 db.once("open", function(callback){
@@ -27,6 +25,18 @@ db.once("open", function(callback){
 const api = express()
 require('../routes/routes')(api)
 app.use('/api', api)
+
+
+
+app.post('/pepa', (req, res) => {
+  new Promise((resolve, reject) => {
+      Pepa.crearPepa((err, doc) => {
+        if (err) return reject(err);
+        res.send(resolve(req.body));
+      });
+    });
+});
+
 /*
 app.post('/pepa', (req, res) => {
     new Promise((resolve, reject) => {
