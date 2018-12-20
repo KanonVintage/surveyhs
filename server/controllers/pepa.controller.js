@@ -3,12 +3,10 @@ var respuesta = require('../utils/responses');
 
 
 const crearPepa= (req, res) => {
-    console.log(req.body);
-
-
     let Pepa = new PepaModel({
       fotoURL        : req.body.fotoURL,
-      nombre          : req.body.nombre
+      nombre          : req.body.nombre,
+      region          : req.body.region
     });
     Pepa.crearPepa((err, pregunta) => {
       if (err) return respuesta.serverError(res);

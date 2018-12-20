@@ -3,6 +3,7 @@ var respuesta = require('../utils/responses');
 
 
 const crearSurvey= (req, res) => {
+  console.log(req.body);
     let survey = new SurveyModel({
       nombre        : req.body.nombre,
       pepas         : req.body.pepas

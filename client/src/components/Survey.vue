@@ -77,25 +77,22 @@
 <script>
 import SurveyService from '@/services/SurveyService'
 export default {
+  created: function(){
+    this.obtenerDatosSurvey();
+  },
   name: 'survey',
   data () {
     return {
-        nombre: 'Encuesta sobre pepas de cacao',
+        nombre: '',
         fermentacion: '',
         tipo:  '',
-        url: 'http://cacaomovil.com/media/uploads/2015/09/03/volteo-granos-asegura.jpg',
-        length: 3,
-        onboarding: 0
+        pepas: []
     }
   },
   mounted () {
     this.getSurvey()
   },
   methods: {
-    async getSurvey () {
-      const response = await SurveyService.fetchInfo()
-      this.surveys = response.data
-    },
     next () {
         this.onboarding = this.onboarding + 1 === length
           ? 0
@@ -105,6 +102,13 @@ export default {
         this.onboarding = this.onboarding - 1 < 0
           ? this.length - 1
           : this.onboarding - 1
+      },
+      obtenerDatosSurvey: function(){
+        var id_survey = window.location.href.toString().split('/')[4];
+        this.$http.get(`/api/survey/${id_survey}`).then(res => {
+        this.pepas = JSON.parse(JSON.stringify(res.body.datos.pepas))
+        this.nombre = JSON.parse(JSON.stringify(res.body.datos.nombre))
+      });
       }
   }
 }

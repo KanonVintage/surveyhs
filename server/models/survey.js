@@ -23,7 +23,7 @@ SurveySchema.methods.crearSurvey = function(callback) {
 
 SurveySchema.statics.obtenerSurvey = function(id_survey, callback) {
 this.findOne({_id: id_survey})
-    .populate('pepa')
+    .populate('pepas.pepa')
     .exec(callback);
 }
 

@@ -11,6 +11,9 @@ var PepaSchema = new Schema({
   },
   nombre: {
     type: String
+  },
+  region: {
+    type: String
   }
 }, {timestamps: true, versionKey: false, collection: 'pepas'});
 
