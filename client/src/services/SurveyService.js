@@ -2,7 +2,7 @@
 import Api from '@/services/Api'
 
 export default {
-  fetchInfo () {
-    return Api().get('survey', id_survey)
+  fetchInfo (id_survey) {
+    return Api().get('api/survey/'+id_survey)
   }
 }

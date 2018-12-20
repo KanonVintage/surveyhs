@@ -1,42 +1,50 @@
 <template>
   <div class="survey">
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="2000"
+      :top=true
+      :color= 'color'
+    >
+      {{ mensaje }}
+    </v-snackbar>
+
     <h1>{{nombre}}</h1>
     </br>
     </br>
     
   <v-tabs dark color="cyan" show-arrows>
       <v-tabs-slider color="yellow"></v-tabs-slider>
-  
-      <v-tab v-for="i in 30" :href="'#tab-' + i" :key="i">
-        Item {{ i }}
+
+      <v-tab v-for="pepa in pepas" :href="'#tab-' + pepa.pepa._id" :key="pepa.pepa._id">
+        {{pepa.pepa.nombre}}
       </v-tab>
   
       <v-tabs-items>
-        <v-tab-item v-for="i in 30" :id="'tab-' + i" :key="i">
+        <v-tab-item v-for="pepa in pepas" :id="'tab-' + pepa.pepa._id" :key="pepa.pepa._id">
           <v-card flat>
 
-
+<div style="margin: 50px;">
             <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex xs6>
       <h3 style="text-align:left;">Nivel de fermentación</h3>
-      <v-radio-group v-model="fermentacion" :mandatory="false">
-        <v-radio label="Buena Fermentación" value="buena"></v-radio>
-        <v-radio label="Ligera Fermentación" value="ligera"></v-radio>
+      <v-radio-group :id="'radiog-f-' + pepa.pepa._id" v-model="pepa.pepa.fermentacion" :mandatory="false">
+        <v-radio label="Buena Fermentación" value="buena" ></v-radio>
+        <v-radio label="Ligera Fermentación" value="ligera" ></v-radio>
         <v-radio label="Violeta" value="violeta"></v-radio>
-        <v-radio label="Pizarro" value="pizarro"></v-radio>
+        <v-radio label="Pizarro" value="pizarro" ></v-radio>
         <v-radio label="Moho" value="moho"></v-radio>
       </v-radio-group>
       <h3 style="text-align:left;">Tipo</h3>
-      <v-radio-group v-model="tipo" :mandatory="false">
+      <v-radio-group v-model="pepa.pepa.tipo" :id="'radiog-t-' + pepa.pepa._id" :mandatory="false">
         <v-radio label="Nacional/ Cacao Fino" value="fino"></v-radio>
         <v-radio label="CCN51" value="ccn51"></v-radio>
       </v-radio-group>
         </v-flex>
-        
         <v-flex xs6 >
             <div>
-              <v-img v-bind:src="url" aspect-ratio="1.5"></v-img>
+              <v-img v-bind:src="pepa.pepa.fotoURL" max-width="500" aspect-ratio="1.5"></v-img>
 
             </div>
         </v-flex>   
@@ -44,18 +52,14 @@
             </v-container>
 
         <v-container fluid>
-          <v-layout align-end justify-space-between fill-height>
-              <v-flex xs4>
-                <v-btn @click="prev">Anterior</v-btn>
-              </v-flex>
-              <v-flex xs4>
-                <v-btn @click="next">Siguiente</v-btn>
+          <v-layout align-end>
+              <v-flex xs5 offset-xs6>
+                <v-btn @click="enviarRespuesta(pepa.pepa._id, pepa.pepa.fermentacion, pepa.pepa.tipo)">Enviar Respuesta</v-btn>
               </v-flex>
           </v-layout>
         </v-container>
             
-
-
+</div>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -84,13 +88,13 @@ export default {
   data () {
     return {
         nombre: '',
-        fermentacion: '',
-        tipo:  '',
-        pepas: []
+        pepas: [],
+        experto: '',
+        survey: '',
+        mensaje: '',
+        color: '',
+        snackbar: false,
     }
-  },
-  mounted () {
-    this.getSurvey()
   },
   methods: {
     next () {
@@ -103,13 +107,46 @@ export default {
           ? this.length - 1
           : this.onboarding - 1
       },
-      obtenerDatosSurvey: function(){
-        var id_survey = window.location.href.toString().split('/')[4];
-        this.$http.get(`/api/survey/${id_survey}`).then(res => {
-        this.pepas = JSON.parse(JSON.stringify(res.body.datos.pepas))
-        this.nombre = JSON.parse(JSON.stringify(res.body.datos.nombre))
-      });
-      }
+      async obtenerDatosSurvey(){
+        var id_survey = window.location.href.toString().split('/')[5];
+        const res= await SurveyService.fetchInfo(id_survey);
+        //console.log(res.data.datos.nombre)
+        console.log(res.data.datos.pepas)
+        this.pepas = res.data.datos.pepas
+        this.survey= res.data.datos._id
+        this.experto= "experto1"
+        this.nombre = res.data.datos.nombre
+      },
+      async enviarRespuesta(id_pepa, ferm, tipoPepa){
+        /*try {
+          let response = await SurveyService.enviarRespuesta({
+            fermentacion: ferm,
+            tipo: tipoPepa,
+            pepa: id_pepa,
+            experto: this.experto,
+            survey: thisz.survey
+        });
+         this.alertSuccess();
+        } catch(err) {
+          this.alertError();
+        }*/
+        console.log(this.survey);
+        console.log(id_pepa);
+        console.log(ferm);
+        console.log(tipoPepa);
+        this.alertSuccess();
+      },
+      alertSuccess: function(){
+        this.color= "green"
+        this.mensaje= "Respuesta enviada correctamente.";
+        this.snackbar= true;
+      },
+      alertError: function(){
+        this.color= "red"
+        this.mensaje= "Ocurrió un error enviando la respuesta.";
+        this.snackbar= true;
+      },
+
   }
 }
 </script>

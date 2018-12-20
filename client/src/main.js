@@ -6,9 +6,11 @@ import router from './router'
 import 'vuetify/dist/vuetify.min.css'
 import 'vue-material-design-icons/styles.css'
 import Vuetify from 'vuetify'
+import vueResource from 'vue-resource'
 
 
 Vue.use(Vuetify)
+Vue.use(vueResource);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
