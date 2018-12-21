@@ -10,8 +10,8 @@ const crearRespuesta= (req, res) => {
       experto       : req.body.experto,
       survey        : req.body.survey
     });
-    Respuesta.crearRespuesta((err, pregunta) => {
-      if (err) return respuesta.serverError(res);
+    RespuestaModel.findOneAndUpdate({$and:[{pepa: {$regex: Respuesta.pepa}}, {experto: {$regex: Respuesta.experto}}, {survey: {$regex: Respuesta.survey}}]}, Respuesta , {upsert: true},(err, pregunta) => {
+      if (err) console.log(err);
       return respuesta.creado(res);
     });
   }

@@ -9,11 +9,27 @@ const crearExperto= (req, res) => {
       password      : req.body.password,
       trabajo       : req.body.trabajo
     });
-    experto.crearExperto((err, pregunta) => {
+    experto.crearExperto(experto,(err, pregunta) => {
       if (err) return respuesta.serverError(res);
       return respuesta.creado(res);
     });
   }
+
+  const realizarLogin= (req, res) =>{
+    ExpertoModel.findOne({user: req.body.user}, function(err,user){
+      if (err) return respuesta.serverError(res);
+
+      user.compararPassword(req.body.password, function(err,isMatch){
+        if (err) return respuesta.serverError(res);
+        var loginToken= {};
+        loginToken.experto= user._id;
+        loginToken.matched= isMatch;
+        return respuesta.ok(res,loginToken);
+      });
+
+    });
+
+  };
 
   const obtenerExperto = (req, res) => {
     ExpertoModel.obtenerExperto(req.params.id_experto,(err, experto) => {
@@ -24,5 +40,6 @@ const crearExperto= (req, res) => {
 
   module.exports = {
     obtenerExperto,
-    crearExperto
+    crearExperto,
+    realizarLogin
   }

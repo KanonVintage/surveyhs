@@ -13,7 +13,7 @@ export default new Router({
       component: Login
     },
     {
-      path: '/survey/:id_survey',
+      path: '/survey/:id_user/:id_survey',
       name: 'Survey',
       component: Survey
     }

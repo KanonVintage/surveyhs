@@ -13,6 +13,7 @@
           required
         ></v-text-field>
         <v-text-field
+        v-model='password'
           :append-icon="show1 ? 'visibility_off' : 'visibility'"
           :rules="passwordRules"
           :type="show1 ? 'text' : 'password'"
@@ -21,7 +22,7 @@
           counter
           @click:append="show1 = !show1"
           ></v-text-field>
-        <v-btn v-on:click="loginLogic()">Login</v-btn>
+        <v-btn v-on:click="realizarLogin()">Login</v-btn>
       </v-form>
     </v-flex>
   </v-layout>
@@ -29,6 +30,7 @@
 </template>
 
 <script>
+import LoginService from '@/services/LoginService'
 export default {
   data: () => ({
     valid: false,
@@ -42,13 +44,30 @@ export default {
     passwordRules: [
       v => !!v || "Password is required",
       v => v.length >= 8 || "Min 8 characters"
-    ]
+    ],
+    password: ''
   }),
   methods: {
-    loginLogic: function() {
-      if (this.name == "jguilindro") {
-        this.$router.push("/survey");
+    async realizarLogin() {
+      try{
+        let response = await LoginService.realizarLogin({
+            user: this.name,
+            password: this.password
+        });
+
+        if (response.status == 200 && response.data.datos.matched){
+          this.$session.start();
+          this.$session.set('jwt', response.data.datos.experto);
+          this.$http.headers.common['Authorization'] = 'Bearer ' + response.data.datos.experto
+          this.$router.push('/survey/'+response.data.datos.experto+'/5nPdc2NCU')
+        }
+      } catch(err){
+        console.log(err);
       }
+      
+      /*if (this.name == "jguilindro") {
+        this.$router.push("/survey");
+      }*/
     }
   }
 };

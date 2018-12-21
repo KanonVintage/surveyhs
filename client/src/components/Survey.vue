@@ -108,44 +108,44 @@ export default {
           : this.onboarding - 1
       },
       async obtenerDatosSurvey(){
-        var id_survey = window.location.href.toString().split('/')[5];
-        const res= await SurveyService.fetchInfo(id_survey);
-        //console.log(res.data.datos.nombre)
-        console.log(res.data.datos.pepas)
-        this.pepas = res.data.datos.pepas
-        this.survey= res.data.datos._id
-        this.experto= "experto1"
-        this.nombre = res.data.datos.nombre
+        var id_survey = window.location.href.toString().split('/')[6];
+
+        try {
+          const res= await SurveyService.fetchInfo(id_survey);
+          this.experto= window.location.href.toString().split('/')[5];
+          this.pepas = res.data.datos.pepas
+          this.survey= res.data.datos._id
+          this.nombre = res.data.datos.nombre
+        } catch(err) {
+          this.alertError("La encuesta no pudo ser cargada correctamente.");
+        }
+        
       },
       async enviarRespuesta(id_pepa, ferm, tipoPepa){
-        /*try {
+        try {
           let response = await SurveyService.enviarRespuesta({
             fermentacion: ferm,
             tipo: tipoPepa,
             pepa: id_pepa,
             experto: this.experto,
-            survey: thisz.survey
+            survey: this.survey
         });
-         this.alertSuccess();
+         this.alertSuccess("Respuesta enviada correctamente.");
         } catch(err) {
-          this.alertError();
-        }*/
-        console.log(this.survey);
-        console.log(id_pepa);
-        console.log(ferm);
-        console.log(tipoPepa);
-        this.alertSuccess();
+          this.alertError("Ocurrió un error enviando la respuesta.");
+        }
+  
       },
-      alertSuccess: function(){
+      alertSuccess: function(message){
         this.color= "green"
-        this.mensaje= "Respuesta enviada correctamente.";
+        this.mensaje= message;
         this.snackbar= true;
       },
-      alertError: function(){
+      alertError: function(message){
         this.color= "red"
-        this.mensaje= "Ocurrió un error enviando la respuesta.";
+        this.mensaje= message;
         this.snackbar= true;
-      },
+      }
 
   }
 }

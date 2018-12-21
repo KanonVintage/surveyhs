@@ -13,22 +13,19 @@ var RespuestaSchema = new Schema({
     type: String
   },
   pepa: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Pepa'
   },
   experto: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Experto'
   },
   survey: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Survey'
   }
 },{timestamps: true, versionKey: false, collection: 'respuestas'});
 
-RespuestaSchema.methods.crearRespuesta = function(callback) {
-  this.save(callback);
-}
 
 RespuestaSchema.statics.obtenerTodasRespuestas = function(callback) {
 	this.find({}).populate('pepa','_id').populate('experto', '_id nombre').populate('survey', '_id').exec(callback);

@@ -7,10 +7,12 @@ import 'vuetify/dist/vuetify.min.css'
 import 'vue-material-design-icons/styles.css'
 import Vuetify from 'vuetify'
 import vueResource from 'vue-resource'
+import VueSession from 'vue-session'
 
 
-Vue.use(Vuetify)
+Vue.use(Vuetify);
 Vue.use(vueResource);
+Vue.use(VueSession);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
