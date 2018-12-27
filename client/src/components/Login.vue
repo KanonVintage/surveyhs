@@ -1,5 +1,13 @@
 <template>
-
+  <div class="login">
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="2000"
+      :top=true
+      color= 'red'
+    >
+      Usuario o Contraseña Incorrectos.
+    </v-snackbar>
   <v-container align-center>
     <v-layout row wrap>
       <v-flex xs4></v-flex>
@@ -9,24 +17,27 @@
           v-model="name"
           :rules="nameRules"
           :counter="10"
-          label="Name"
+          label="Nombre de usuario"
           required
         ></v-text-field>
         <v-text-field
         v-model='password'
           :append-icon="show1 ? 'visibility_off' : 'visibility'"
           :rules="passwordRules"
+          label="Contraseña"
           :type="show1 ? 'text' : 'password'"
           name="input-10-1"
-          hint="At least 8 characters"
+          hint="Necesita mínimo 8 caracteres"
           counter
           @click:append="show1 = !show1"
           ></v-text-field>
-        <v-btn v-on:click="realizarLogin()">Login</v-btn>
+        <v-btn v-on:click="realizarLogin()">Iniciar Sesión</v-btn>
       </v-form>
     </v-flex>
   </v-layout>
   </v-container>
+
+  </div>
 </template>
 
 <script>
@@ -37,16 +48,18 @@ export default {
     name: "",
     show1: false,
     nameRules: [
-      v => !!v || "Name is required",
-      v => v.length <= 10 || "Name must be less than 10 characters"
+      v => !!v || "Nombre de usuario requerido",
+      v => v.length <= 10 || "Nombre de usuario no debe tener mas de 10 caracteres"
     ],
     email: "",
     passwordRules: [
-      v => !!v || "Password is required",
-      v => v.length >= 8 || "Min 8 characters"
+      v => !!v || "Contraseña requerida",
+      v => v.length >= 8 || "Minimo 8 caracteres"
     ],
-    password: ''
+    password: '',
+    snackbar: false,
   }),
+  name: 'login',
   methods: {
     async realizarLogin() {
       try{
@@ -60,6 +73,8 @@ export default {
           this.$session.set('jwt', response.data.datos.experto);
           this.$http.headers.common['Authorization'] = 'Bearer ' + response.data.datos.experto
           this.$router.push('/survey/'+response.data.datos.experto+'/kOc65sdRA')
+        } else{
+          this.snackbar= true;
         }
       } catch(err){
         console.log(err);
