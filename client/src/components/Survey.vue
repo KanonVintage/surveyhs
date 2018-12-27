@@ -8,8 +8,17 @@
     >
       {{ mensaje }}
     </v-snackbar>
-
-    <h1>{{nombre}}</h1>
+    <v-container fluid>
+          <v-layout align-end>
+            <v-flex offset-xs1>
+            <h1>{{nombre}}</h1>
+            </v-flex>
+              <v-flex xs5 offset-xs6>
+                <v-btn @click="logout()">Cerrar Sesión</v-btn>
+          </v-flex>
+          </v-layout>
+        </v-container>
+    
     </br>
     </br>
     
@@ -96,6 +105,11 @@ export default {
         snackbar: false,
     }
   },
+  beforeCreate: function () {
+    if (!this.$session.exists()) {
+      this.$router.push('/')
+    }
+  },
   methods: {
     next () {
         this.onboarding = this.onboarding + 1 === length
@@ -145,6 +159,10 @@ export default {
         this.color= "red"
         this.mensaje= message;
         this.snackbar= true;
+      },
+      logout: function () {
+        this.$session.destroy()
+        this.$router.push('/')
       }
 
   }

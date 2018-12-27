@@ -59,7 +59,7 @@ export default {
           this.$session.start();
           this.$session.set('jwt', response.data.datos.experto);
           this.$http.headers.common['Authorization'] = 'Bearer ' + response.data.datos.experto
-          this.$router.push('/survey/'+response.data.datos.experto+'/5nPdc2NCU')
+          this.$router.push('/survey/'+response.data.datos.experto+'/kOc65sdRA')
         }
       } catch(err){
         console.log(err);
