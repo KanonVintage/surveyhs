@@ -19,13 +19,18 @@ const crearExperto= (req, res) => {
     ExpertoModel.findOne({user: req.body.user}, function(err,user){
       if (err) return respuesta.serverError(res);
 
-      user.compararPassword(req.body.password, function(err,isMatch){
-        if (err) return respuesta.serverError(res);
-        var loginToken= {};
-        loginToken.experto= user._id;
-        loginToken.matched= isMatch;
-        return respuesta.ok(res,loginToken);
-      });
+      if (user!= null){
+        user.compararPassword(req.body.password, function(err,isMatch){
+          if (err) return respuesta.serverError(res);
+          var loginToken= {};
+          loginToken.experto= user._id;
+          loginToken.matched= isMatch;
+          return respuesta.ok(res,loginToken);
+        });
+      } else {
+       return respuesta.urlNoValido(res);
+      }
+      
 
     });
 

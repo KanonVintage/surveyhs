@@ -9,9 +9,13 @@
       Usuario o Contraseña Incorrectos.
     </v-snackbar>
   <v-container align-center>
+    
     <v-layout row wrap>
       <v-flex xs4></v-flex>
       <v-flex xs4>
+        <v-img src="http://www.espol.edu.ec/sites/default/files/espol%20simbolo.png" max-width="500" aspect-ration=0.5></v-img>
+       </br>
+       </br>
       <v-form v-model="valid">
         <v-text-field 
           v-model="name"
@@ -19,6 +23,7 @@
           :counter="10"
           label="Nombre de usuario"
           required
+          v-on:keyup.enter="realizarLogin()"
         ></v-text-field>
         <v-text-field
         v-model='password'
@@ -30,6 +35,7 @@
           hint="Necesita mínimo 8 caracteres"
           counter
           @click:append="show1 = !show1"
+          v-on:keyup.enter="realizarLogin()"
           ></v-text-field>
         <v-btn v-on:click="realizarLogin()">Iniciar Sesión</v-btn>
       </v-form>
@@ -77,12 +83,11 @@ export default {
           this.snackbar= true;
         }
       } catch(err){
-        console.log(err);
+        if (err.response.status== 404){
+          this.snackbar= true;
+        }
       }
       
-      /*if (this.name == "jguilindro") {
-        this.$router.push("/survey");
-      }*/
     }
   }
 };
