@@ -24,6 +24,7 @@ const crearExperto= (req, res) => {
           if (err) return respuesta.serverError(res);
           var loginToken= {};
           loginToken.experto= user._id;
+          loginToken.nombre= user.nombre;
           loginToken.matched= isMatch;
           return respuesta.ok(res,loginToken);
         });

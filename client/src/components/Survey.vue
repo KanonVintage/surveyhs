@@ -10,8 +10,11 @@
     </v-snackbar>
     <v-container fluid>
           <v-layout align-end>
-            <v-flex offset-xs1>
-            <h1>{{nombre}}</h1>
+            <v-flex xs10 offset-xs1>
+           
+            <h1>Bienvenido, {{this.$session.get('jwt').nombre}}</h1>
+            </br>
+             <h1>{{nombre}}</h1>
             </v-flex>
               <v-flex xs5 offset-xs6>
                 <v-btn @click="logout()">Cerrar Sesión</v-btn>
@@ -22,15 +25,15 @@
     </br>
     </br>
     
-  <v-tabs dark color="cyan" show-arrows>
+  <v-tabs v-model="active" dark color="cyan" show-arrows>
       <v-tabs-slider color="yellow"></v-tabs-slider>
 
-      <v-tab v-for="pepa in pepas" :href="'#tab-' + pepa.pepa._id" :key="pepa.pepa._id">
+      <v-tab v-for="(pepa, index) in pepas"  :key="index">
         {{pepa.pepa.nombre}}
       </v-tab>
   
       <v-tabs-items>
-        <v-tab-item v-for="pepa in pepas" :id="'tab-' + pepa.pepa._id" :key="pepa.pepa._id">
+        <v-tab-item v-for="(pepa, index) in pepas" :key="index">
           <v-card flat>
 
 <div style="margin: 50px;">
@@ -103,6 +106,7 @@ export default {
         mensaje: '',
         color: '',
         snackbar: false,
+        active: null
     }
   },
   beforeCreate: function () {
@@ -112,9 +116,8 @@ export default {
   },
   methods: {
     next () {
-        this.onboarding = this.onboarding + 1 === length
-          ? 0
-          : this.onboarding + 1
+        const active = parseInt(this.active)
+        this.active = (active < this.pepas.length-1 ? active + 1 : active)
       },
       prev () {
         this.onboarding = this.onboarding - 1 < 0
@@ -145,6 +148,7 @@ export default {
             survey: this.survey
         });
          this.alertSuccess("Respuesta enviada correctamente.");
+         this.next();
         } catch(err) {
           this.alertError("Ocurrió un error enviando la respuesta.");
         }

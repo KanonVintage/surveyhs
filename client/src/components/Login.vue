@@ -76,7 +76,7 @@ export default {
 
         if (response.status == 200 && response.data.datos.matched){
           this.$session.start();
-          this.$session.set('jwt', response.data.datos.experto);
+          this.$session.set('jwt', response.data.datos);
           this.$http.headers.common['Authorization'] = 'Bearer ' + response.data.datos.experto
           this.$router.push('/survey/'+response.data.datos.experto+'/kOc65sdRA')
         } else{
