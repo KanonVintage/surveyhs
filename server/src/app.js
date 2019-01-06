@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+require('dotenv').config()
 const morgan = require('morgan')
 
 const app = express()
@@ -13,8 +14,8 @@ app.use(cors())
 
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/surveys');
-
+mongoose.connect('mongodb://'+process.env.DB_USER+':'+process.env.DB_PASS+'@'+process.env.DB_HOST,{ useNewUrlParser: true } );
+//mongoose.connect('mongodb://localhost:27017/surveys');
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 
