@@ -78,7 +78,7 @@ export default {
           this.$session.start();
           this.$session.set('jwt', response.data.datos);
           this.$http.headers.common['Authorization'] = 'Bearer ' + response.data.datos.experto
-          this.$router.push('/survey/'+response.data.datos.experto+'/kOc65sdRA')
+          this.$router.push('/survey/'+response.data.datos.experto+'/Nnkx0sT_G')
         } else{
           this.snackbar= true;
         }
