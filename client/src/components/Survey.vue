@@ -8,23 +8,21 @@
     >
       {{ mensaje }}
     </v-snackbar>
-    <v-container fluid>
-          <v-layout align-end>
-            <v-flex xs10 offset-xs1>
-           
-            <h1>Bienvenido, {{this.$session.get('jwt').nombre}}</h1>
-            </br>
-             <h1>{{nombre}}</h1>
-            </v-flex>
-              <v-flex xs5 offset-xs6>
-                <v-btn @click="logout()">Cerrar Sesión</v-btn>
-          </v-flex>
-          </v-layout>
-        </v-container>
-    
-    </br>
-    </br>
-    
+
+        <v-toolbar>
+      <v-toolbar-title>{{this.$session.get('jwt').nombre}} - {{nombre}}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat @click="logout()">Cerrar Sesión</v-btn>
+      </v-toolbar-items>
+      <v-toolbar-items class="hidden-md-and-up">
+        <v-btn flat @click="logout()">Cerrar Sesión</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+
+   
+
+
   <v-tabs v-model="active" dark color="cyan" show-arrows>
       <v-tabs-slider color="yellow"></v-tabs-slider>
 
@@ -38,6 +36,9 @@
 
 <div style="margin: 50px;">
             <v-container grid-list-md text-xs-center>
+              <v-img class="hidden-md-and-up" v-bind:src="pepa.pepa.fotoURL" max-width="500" aspect-ratio="1.5"></v-img>
+              </br class="hidden-md-and-up">
+              </br class="hidden-md-and-up">
       <v-layout row wrap>
         <v-flex xs6>
       <h3 style="text-align:left;">Nivel de fermentación</h3>
@@ -54,22 +55,19 @@
         <v-radio label="CCN51" value="ccn51"></v-radio>
       </v-radio-group>
         </v-flex>
-        <v-flex xs6 >
-            <div>
-              <v-img v-bind:src="pepa.pepa.fotoURL" max-width="500" aspect-ratio="1.5"></v-img>
-
+        
+        <v-flex xs6 class="hidden-sm-and-down">
+            <div class="hidden-sm-and-down">
+              <v-img class="hidden-sm-and-down" v-bind:src="pepa.pepa.fotoURL" max-width="500" aspect-ratio="1.5"></v-img>
+              
             </div>
         </v-flex>   
               </v-layout>
             </v-container>
 
-        <v-container fluid>
-          <v-layout align-end>
-              <v-flex xs5 offset-xs6>
+        <div class="text-xs-center">
                 <v-btn @click="enviarRespuesta(pepa.pepa._id, pepa.pepa.fermentacion, pepa.pepa.tipo)">Enviar Respuesta</v-btn>
-              </v-flex>
-          </v-layout>
-        </v-container>
+          </div>
             
 </div>
           </v-card>

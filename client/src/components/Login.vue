@@ -11,9 +11,14 @@
   <v-container align-center>
     
     <v-layout row wrap>
-      <v-flex xs4></v-flex>
-      <v-flex xs4>
-        <v-img src="http://www.espol.edu.ec/sites/default/files/espol%20simbolo.png" max-width="500" aspect-ration=0.5></v-img>
+      <v-flex xs3></v-flex>
+      <v-flex xs6>
+        <v-flex offset-xs2 class="hidden-md-and-up">
+        <v-img src="http://www.espol.edu.ec/sites/default/files/espol%20simbolo.png" max-width="300" aspect-ration=0.5></v-img>
+        </v-flex>
+        <v-flex offset-xs2 class="hidden-sm-and-down">
+        <v-img src="http://www.espol.edu.ec/sites/default/files/espol%20simbolo.png" max-width="370" aspect-ration=0.5></v-img>
+        </v-flex>
        </br>
        </br>
       <v-form v-model="valid">
@@ -37,11 +42,14 @@
           @click:append="show1 = !show1"
           v-on:keyup.enter="realizarLogin()"
           ></v-text-field>
-        <v-btn v-on:click="realizarLogin()">Iniciar Sesión</v-btn>
+          
       </v-form>
     </v-flex>
   </v-layout>
   </v-container>
+  <div class="text-xs-center">
+        <v-btn v-on:click="realizarLogin()">Iniciar Sesión</v-btn>
+          </div>
 
   </div>
 </template>
