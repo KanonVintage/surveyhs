@@ -36,7 +36,12 @@
 
 <div style="margin: 50px;">
             <v-container grid-list-md text-xs-center>
-              <v-img class="hidden-md-and-up" v-bind:src="pepa.pepa.fotoURL" max-width="500" aspect-ratio="1.5"></v-img>
+              <h3>Región: {{pepa.pepa.region}}</h3>
+              <div v-viewer class="images clearfix">
+
+                <img class="hidden-md-and-up" v-bind:src="pepa.pepa.fotoURL" width="300" style="width: 60%;height: auto;">
+              
+              </div>
               </br class="hidden-md-and-up">
               </br class="hidden-md-and-up">
       <v-layout row wrap>
@@ -57,9 +62,10 @@
         </v-flex>
         
         <v-flex xs6 class="hidden-sm-and-down">
-            <div class="hidden-sm-and-down">
-              <v-img class="hidden-sm-and-down" v-bind:src="pepa.pepa.fotoURL" max-width="500" aspect-ratio="1.5"></v-img>
-              
+            <div v-viewer class="images clearfix">
+
+              <img class="hidden-sm-and-down" v-bind:src="pepa.pepa.fotoURL" style="width: 60%;height: auto;">
+
             </div>
         </v-flex>   
               </v-layout>
@@ -93,6 +99,7 @@ import SurveyService from '@/services/SurveyService'
 export default {
   created: function(){
     this.obtenerDatosSurvey();
+    
   },
   name: 'survey',
   data () {

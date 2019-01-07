@@ -2,6 +2,6 @@ import axios from 'axios'
 
 export default() => {
   return axios.create({
-    baseURL: `http://ec2-54-88-80-204.compute-1.amazonaws.com:8081`
+    baseURL: `http://ec2-54-88-181-123.compute-1.amazonaws.com:8081`
   })
 }
