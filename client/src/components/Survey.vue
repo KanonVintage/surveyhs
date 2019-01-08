@@ -20,6 +20,32 @@
       </v-toolbar-items>
     </v-toolbar>
 
+
+      <v-dialog
+        v-model="dialog"
+        max-width="500"
+      >
+        <v-card>
+          <v-card-title class="headline">Encuesta Terminada</v-card-title>
+  
+          <v-card-text>
+           Usted ha completado satisfactoriamente la encuesta sobre granos de cacao, por favor cierre sesión. Gracias por su colaboración.
+          </v-card-text>
+  
+          <v-card-actions>
+            <v-spacer></v-spacer>
+  
+            <v-btn
+              color="green darken-1"
+              flat="flat"
+              @click="dialog = false"
+            >
+              Aceptar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
    
 
 
@@ -111,7 +137,8 @@ export default {
         mensaje: '',
         color: '',
         snackbar: false,
-        active: null
+        active: null,
+        dialog: false
     }
   },
   beforeCreate: function () {
@@ -123,6 +150,9 @@ export default {
     next () {
         const active = parseInt(this.active)
         this.active = (active < this.pepas.length-1 ? active + 1 : active)
+        if (active==this.pepas.length-1){
+          this.dialog = true;
+        }
       },
       prev () {
         this.onboarding = this.onboarding - 1 < 0
