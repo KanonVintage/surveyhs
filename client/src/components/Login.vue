@@ -10,11 +10,11 @@
     </v-snackbar>
     <v-snackbar
       v-model="snackbar2"
-      :timeout="2000"
+      :timeout="5000"
       :top=true
       color= 'red'
     >
-      No se le ha asignado una encuesta a este Usuario.
+      No se le ha asignado una encuesta a este usuario. Contactarse con el administrador del sistema para que se le pueda asignar una.
     </v-snackbar>
   <v-container align-center>
     
@@ -96,8 +96,7 @@ export default {
           this.$session.start();
           this.$session.set('jwt', response.data.datos);
           this.$http.headers.common['Authorization'] = 'Bearer ' + response.data.datos.experto;
-          if(survey != null){
-            if (survey.status == 200)
+          if(survey.data.datos != null && survey.status == 200){
             this.$router.push('/survey/'+response.data.datos.experto+'/'+ survey.data.datos.survey);
           } else{
             this.snackbar2= true;
