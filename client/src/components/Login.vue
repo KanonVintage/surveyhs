@@ -33,7 +33,7 @@
         <v-text-field 
           v-model="name"
           :rules="nameRules"
-          :counter="10"
+          :counter="15"
           label="Nombre de usuario"
           required
           v-on:keyup.enter="realizarLogin()"
@@ -71,7 +71,7 @@ export default {
     show1: false,
     nameRules: [
       v => !!v || "Nombre de usuario requerido",
-      v => v.length <= 10 || "Nombre de usuario no debe tener mas de 10 caracteres"
+      v => v.length <= 15 || "Nombre de usuario no debe tener mas de 15 caracteres"
     ],
     email: "",
     passwordRules: [
