@@ -8,6 +8,14 @@
     >
       Usuario o Contraseña Incorrectos.
     </v-snackbar>
+    <v-snackbar
+      v-model="snackbar2"
+      :timeout="2000"
+      :top=true
+      color= 'red'
+    >
+      No se le ha asignado una encuesta a este Usuario.
+    </v-snackbar>
   <v-container align-center>
     
     <v-layout row wrap>
@@ -72,6 +80,7 @@ export default {
     ],
     password: '',
     snackbar: false,
+    snackbar2: false
   }),
   name: 'login',
   methods: {
@@ -87,7 +96,12 @@ export default {
           this.$session.start();
           this.$session.set('jwt', response.data.datos);
           this.$http.headers.common['Authorization'] = 'Bearer ' + response.data.datos.experto;
-          this.$router.push('/survey/'+response.data.datos.experto+'/'+ survey.data.datos.survey);
+          if(survey.status == 200){
+            this.$router.push('/survey/'+response.data.datos.experto+'/'+ survey.data.datos.survey);
+          } else{
+            this.snackbar2= true;
+          }
+          
         } else{
           this.snackbar= true;
         }
