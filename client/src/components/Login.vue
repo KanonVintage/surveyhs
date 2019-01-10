@@ -83,10 +83,11 @@ export default {
         });
 
         if (response.status == 200 && response.data.datos.matched){
+          let survey = await LoginService.obtenerSurvey(response.data.datos.experto);
           this.$session.start();
           this.$session.set('jwt', response.data.datos);
-          this.$http.headers.common['Authorization'] = 'Bearer ' + response.data.datos.experto
-          this.$router.push('/survey/'+response.data.datos.experto+'/UUec3OWNc')
+          this.$http.headers.common['Authorization'] = 'Bearer ' + response.data.datos.experto;
+          this.$router.push('/survey/'+response.data.datos.experto+'/'+ survey.data.datos.survey);
         } else{
           this.snackbar= true;
         }
