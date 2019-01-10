@@ -9,7 +9,7 @@ const crearExperto= (req, res) => {
       password      : req.body.password,
       trabajo       : req.body.trabajo
     });
-    experto.crearExperto(experto,(err, pregunta) => {
+    experto.crearExperto((err) => {
       if (err) return respuesta.serverError(res);
       return respuesta.creado(res);
     });
