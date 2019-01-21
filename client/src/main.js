@@ -12,10 +12,10 @@ import 'viewerjs/dist/viewer.css'
 import Viewer from 'v-viewer'
 
 
-
 Vue.use(Vuetify);
 Vue.use(vueResource);
 Vue.use(VueSession);
+
 Vue.use(Viewer, {defaultOptions: {
   toolbar: 0,
   navbar: 0,

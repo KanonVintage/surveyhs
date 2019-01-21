@@ -31,16 +31,6 @@ require('../routes/routes')(api)
 app.use('/api', api)
 
 
-
-app.post('/pepa', (req, res) => {
-  new Promise((resolve, reject) => {
-      Pepa.crearPepa((err, doc) => {
-        if (err) return reject(err);
-        res.send(resolve(req.body));
-      });
-    });
-});
-
 /*
 app.post('/pepa', (req, res) => {
     new Promise((resolve, reject) => {

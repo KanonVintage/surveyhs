@@ -57,7 +57,7 @@
       </v-tab>
   
       <v-tabs-items>
-        <v-tab-item v-for="(pepa, index) in pepas" :key="index">
+        <v-tab-item lazy=true v-for="(pepa, index) in pepas" :key="index">
           <v-card flat>
 
 <div style="margin: 50px;">
